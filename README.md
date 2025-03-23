@@ -103,9 +103,9 @@ POST /predict
 
 ## Authors & Contributors
 - **Divina Mbel** – Geospatial Mapping, Sentiment Analysis, README File
-- **Lesly** – Data Cleaning, Donor Profiling, Presentation
-- **Raoul** – Health Analysis, Campaign Effectiveness, Donor Retention
-- **Tamanji** – Machine Learning Model & FastAPI Integration
+- **Mahagueheme Lesly** – Data Cleaning, Donor Profiling, Presentation
+- **Ntui Raoul** – Health Analysis, Campaign Effectiveness, Donor Retention
+- **Tamanji Courage** – Machine Learning Model & FastAPI Integration
 
 ## License
 This project is open-source and available under the MIT License.
