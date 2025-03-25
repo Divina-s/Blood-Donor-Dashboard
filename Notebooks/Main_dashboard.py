@@ -1,6 +1,5 @@
 import sys
 import os
-# Add the path to the 'src' folder to the system path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import streamlit as st
@@ -22,7 +21,7 @@ def main():
         import donors_map  # Ensure donors_map.py exists
         donors_map.run()
     elif page == "Blood Donation Eligibility":
-        st_dep.st_dep_dashboard()  # Call the Streamlit code from st_dep.py for prediction
+        st_dep.blood_donation_predictor()  # Call the Streamlit code for prediction from st_dep.py
 
 if __name__ == "__main__":
     main()
