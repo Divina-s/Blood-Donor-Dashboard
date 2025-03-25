@@ -1,4 +1,4 @@
-import streamlit as st   
+import streamlit as st    
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -103,30 +103,26 @@ def sentiment_analysis_dashboard():
     st.sidebar.markdown("""<div style="background-color: #fafafa; padding: 15px; border-radius: 10px;">Use the filters to adjust the data.</div>""", unsafe_allow_html=True)
 
     # Multi-select for arrondissement with a unique key
-    arrondissements = df["Arrondissement de résidence"].unique()
-    selected_arrondissement = st.sidebar.multiselect("Select an arrondissement", arrondissements, key="arrondissement_multiselect_unique")
+    arrondissements = df["Arrondissement_de_résidence_"].unique()
+    selected_arrondissement = st.sidebar.multiselect("Select an arrondissement", arrondissements, key="arrondissement_multiselect_unique_1")
 
     # Apply arrondissement filter
     if selected_arrondissement:
-        df = df[df["Arrondissement de résidence"].isin(selected_arrondissement)]
+        df = df[df["Arrondissement_de_résidence_"].isin(selected_arrondissement)]
 
     # Sliders for health factors with unique keys
     st.sidebar.subheader("Health Factor Filters")
     
-    if "Taux d’hémoglobine" in df.columns:
-        min_hb, max_hb = float(df["Taux d’hémoglobine"].min()), float(df["Taux d’hémoglobine"].max())
-        hb_range = st.sidebar.slider("Taux d’hémoglobine", min_hb, max_hb, (min_hb, max_hb), key="hb_slider_unique")
-        df = df[(df["Taux d’hémoglobine"] >= hb_range[0]) & (df["Taux d’hémoglobine"] <= hb_range[1])]
+    if "Taux_d’hémoglobine_" in df.columns:
+        min_hb, max_hb = float(df["Taux_d’hémoglobine_"].min()), float(df["Taux_d’hémoglobine_"].max())
+        hb_range = st.sidebar.slider("Taux_d’hémoglobine_", min_hb, max_hb, (min_hb, max_hb), key="hb_slider_unique_2")
+        df = df[(df["Taux_d’hémoglobine_"] >= hb_range[0]) & (df["Taux_d’hémoglobine_"] <= hb_range[1])]
 
-    if "Poids" in df.columns:
-        min_weight, max_weight = float(df["Poids"].min()), float(df["Poids"].max())
-        weight_range = st.sidebar.slider("Poids (kg)", min_weight, max_weight, (min_weight, max_weight), key="weight_slider_unique")
-        df = df[(df["Poids"] >= weight_range[0]) & (df["Poids"] <= weight_range[1])]
-
-    if "Taille" in df.columns:
-        min_height, max_height = float(df["Taille"].min()), float(df["Taille"].max())
-        height_range = st.sidebar.slider("Taille (cm)", min_height, max_height, (min_height, max_height), key="height_slider_unique")
-        df = df[(df["Taille"] >= height_range[0]) & (df["Taille"] <= height_range[1])]
+    # Use "Age" for the slider instead of "Taille" and "Poids"
+    if "Age" in df.columns:
+        min_age, max_age = int(df["Age"].min()), int(df["Age"].max())
+        age_range = st.sidebar.slider("Age (years)", min_age, max_age, (min_age, max_age), key="age_slider_unique_3")
+        df = df[(df["Age"] >= age_range[0]) & (df["Age"] <= age_range[1])]
 
     # Download Button with better styling
     st.sidebar.subheader("Download Data")
@@ -187,7 +183,7 @@ def sentiment_analysis_dashboard():
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # Three Graphs: Sentiment Based on Blood Donation History, Geographic Sentiment Analysis, and Health Factor Analysis
-    col1, col2= st.columns(2)
+    col1, col2 = st.columns(2)
 
     # Sentiment Based on Blood Donation History (Graph 1)
     with col1:
@@ -208,9 +204,9 @@ def sentiment_analysis_dashboard():
     # Geographic Sentiment Analysis - Graph 2
     with col2:
         st.subheader("Average Hemoglobin Level by Sentiment")
-        if "Taux d’hémoglobine" in df.columns:
+        if "Taux_d’hémoglobine_" in df.columns:
             fig, ax = plt.subplots(figsize=(6, 4))
-            df.groupby('Sentiment de Don')["Taux d’hémoglobine"].mean().plot(kind='bar', ax=ax, color='skyblue', legend=False)
+            df.groupby('Sentiment de Don')["Taux_d’hémoglobine_"].mean().plot(kind='bar', ax=ax, color='skyblue', legend=False)
             ax.set_title("Average Hemoglobin by Sentiment")
             ax.set_ylabel("Hemoglobin Level")
             ax.set_xlabel("Sentiment")
@@ -221,12 +217,13 @@ def sentiment_analysis_dashboard():
 
     # Health Factor Analysis - Graph 3
     # Sentiment Distribution Map
-    if 'Arrondissement de résidence' in df.columns:
+    if 'Arrondissement_de_résidence_' in df.columns:
         st.subheader("Sentiment Distribution Across Different Regions")
-        sentiment_map = df.groupby("Arrondissement de résidence")["Sentiment de Don"].value_counts().unstack().fillna(0)
-        fig = px.bar(sentiment_map, x=sentiment_map.index, y=sentiment_map.columns, barmode='stack', title="Sentiment by Region")
-        st.plotly_chart(fig, use_container_width=True)
-
-# Run the function to generate the dashboard
+        sentiment_map = df.groupby("Arrondissement_de_résidence_")["Sentiment de Don"].value_counts().unstack().fillna(0)
+        fig = px.bar(sentiment_map, x=sentiment_map.index, y=sentiment_map.columns, title="Sentiment Distribution by Region")
+        st.plotly_chart(fig)
+    else:
+        st.error("The column 'Arrondissement de résidence' is missing. Check your dataset.")
+    
 if __name__ == "__main__":
     sentiment_analysis_dashboard()

@@ -6,3 +6,9 @@ textblob
 matplotlib
 seaborn
 pandas
+fastapi
+uvicorn
+joblib
+scikit-learn
+pydantic
+streamlit

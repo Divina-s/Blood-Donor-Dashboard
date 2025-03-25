@@ -4,8 +4,10 @@ import pandas as pd
 import os 
 
 # Load the trained model
+
 model = joblib.load("./models/blood_donation_model.pkl")
 feature_columns = joblib.load("./models/feature_columns.pkl")
+
 
 image_path = os.path.join(os.path.dirname(__file__), "../resources/images/blooddonor.jpeg")
 # Define categorical columns used in training
