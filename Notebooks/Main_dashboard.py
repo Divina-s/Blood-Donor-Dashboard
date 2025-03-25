@@ -10,12 +10,14 @@ import st_dep  # Assuming this is your module with Streamlit code for prediction
 # Import profiling donors
 import profiling_donors  # Import the script for profiling donors
 
+
+
 # Set the page configuration as the very first Streamlit command in your main script
 st.set_page_config(page_title="Blood Donation Predictor", page_icon="💉", layout="wide")
 
 def main():
     st.sidebar.title("Dashboard Navigation")
-    page = st.sidebar.radio("Select a Page", ["Sentiment Analysis", "Donor Distribution", "Blood Donation Eligibility", "Profiling Donors"])
+    page = st.sidebar.radio("Select a Page", ["Sentiment Analysis", "Donor Distribution", "Blood Donation Eligibility", "Profiling Donors", "Donor Retention"])
 
     if page == "Sentiment Analysis":
         import sentiment_analysis
@@ -29,6 +31,9 @@ def main():
     elif page == "Profiling Donors":
         # Link the Profiling Donors functionality
         profiling_donors.profiling_donors_dashboard()  # Call the function for profiling donors from profiling_donors.py
+    elif page == "Donor Retention":
+        # Link the Donor Retention functionality
+        donor_retention.donor_retention_analysis()  # Call the donor retention analysis function
 
 if __name__ == "__main__":
     main()

@@ -32,22 +32,9 @@ def main():
     dataset1 = load_and_process_data1()
     dataset2 = load_and_process_data2()
     
-    # Display first few rows of each dataset
-    st.subheader("Dataset 1 Overview")
-    st.write(dataset1.head())
+   
     
-    st.subheader("Dataset 2 Overview")
-    st.write(dataset2.head())
     
-    # Grouping and Analysis for Dataset 1
-    st.subheader("Donor Analysis - Dataset 1")
-    age_grouped = dataset1.groupby('Age')['ÉLIGIBILITÉ_AU_DON.'].mean()
-    gender_grouped = dataset1.groupby('Genre_')['ÉLIGIBILITÉ_AU_DON.'].mean()
-    location_grouped = dataset1.groupby('Arrondissement_de_résidence_')['ÉLIGIBILITÉ_AU_DON.'].mean()
-    
-    st.write("Age Grouped Donors: ", age_grouped)
-    st.write("Gender Grouped Donors: ", gender_grouped)
-    st.write("Location Grouped Donors: ", location_grouped)
     
     # Visualizations for Dataset 1
     st.subheader("Visualizing Donor Trends - Dataset 1")
