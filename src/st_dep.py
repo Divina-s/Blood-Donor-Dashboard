@@ -1,10 +1,12 @@
 import streamlit as st
 import joblib
 import pandas as pd
+import os 
 
 # Load the trained model
-model = joblib.load("blood_donation_model.pkl")
+model = joblib.load("src/blood_donation_model.pkl")
 
+image_path = os.path.join(os.path.dirname(__file__), "../resources/images/blooddonor.jpeg")
 # Define categorical columns used in training
 categorical_columns = [
     "Niveau_scolaire", "Genre_", "Situation_Matrimoniale_(SM)", 
@@ -37,7 +39,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.sidebar.image("https://www.redcrossblood.org/content/dam/redcrossblood/logo/RCB_logo_red.png", use_column_width=True)
+st.sidebar.image(image_path, use_column_width=True)
 
 # User input form
 with st.form("donor_form"):
