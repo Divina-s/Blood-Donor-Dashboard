@@ -1,0 +1,8 @@
+geopandas
+folium
+plotly
+nltk
+textblob
+matplotlib
+seaborn
+pandas
