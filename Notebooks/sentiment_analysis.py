@@ -4,8 +4,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-# Set page configuration
-st.set_page_config(page_title="Blood Donor Dashboard", page_icon="", layout="wide")
 
 # Custom CSS for enhanced visual appearance
 st.markdown("""
@@ -118,7 +116,7 @@ def sentiment_analysis_dashboard():
         hb_range = st.sidebar.slider("Taux_d’hémoglobine_", min_hb, max_hb, (min_hb, max_hb), key="hb_slider_unique_2")
         df = df[(df["Taux_d’hémoglobine_"] >= hb_range[0]) & (df["Taux_d’hémoglobine_"] <= hb_range[1])]
 
-    # Use "Age" for the slider instead of "Taille" and "Poids"
+    # Use "Age" for the slider "
     if "Age" in df.columns:
         min_age, max_age = int(df["Age"].min()), int(df["Age"].max())
         age_range = st.sidebar.slider("Age (years)", min_age, max_age, (min_age, max_age), key="age_slider_unique_3")

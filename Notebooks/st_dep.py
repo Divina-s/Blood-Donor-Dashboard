@@ -1,16 +1,16 @@
 # st_dep.py
+
 import streamlit as st
 import joblib
 import pandas as pd
-import os 
+import os
 
-# Load the trained model
-
+# Load the trained model and other necessary resources
 model = joblib.load("./models/blood_donation_model.pkl")
 feature_columns = joblib.load("./models/feature_columns.pkl")
 
-
 image_path = os.path.join(os.path.dirname(__file__), "../resources/images/blooddonor.jpeg")
+
 # Define categorical columns used in training
 categorical_columns = [
     "Niveau_scolaire", "Genre_", "Situation_Matrimoniale_(SM)", 
@@ -34,9 +34,6 @@ def predict_eligibility(data):
 
 # Streamlit UI function
 def blood_donation_predictor():
-    # Streamlit UI for the predictor
-    st.set_page_config(page_title="Blood Donation Predictor", page_icon="💉", layout="wide")
-
     st.markdown(
         """
         <h1 style="text-align: center; color: red;">🩸 Blood Donation Eligibility Predictor 🩸</h1>

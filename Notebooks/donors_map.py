@@ -15,23 +15,23 @@ def run():
     st.sidebar.title("Filters")
     arrondissement_filter = st.sidebar.multiselect(
         "Select Arrondissements:",
-        options=df_sheet1['Arrondissement de résidence'].unique(),
+        options=df_sheet1['Arrondissement_de_résidence_'].unique(),
         default=[]  # No pre-selection
     )
     profession_filter = st.sidebar.multiselect(
         "Select Profession:",
-        options=df_sheet1['Profession'].unique(),
+        options=df_sheet1['Profession_'].unique(),
         default=[]  # No pre-selection
     )
     
     # Filter data based on the sidebar selections
     if arrondissement_filter:
-        df_filtered = df_sheet1[df_sheet1['Arrondissement de résidence'].isin(arrondissement_filter)]
+        df_filtered = df_sheet1[df_sheet1['Arrondissement_de_résidence_'].isin(arrondissement_filter)]
     else:
         df_filtered = df_sheet1
     
     if profession_filter:
-        df_filtered = df_filtered[df_filtered['Profession'].isin(profession_filter)]
+        df_filtered = df_filtered[df_filtered['Profession_'].isin(profession_filter)]
     
     # Title for the Streamlit app
     st.title("Blood Donor Dashboard")
@@ -42,8 +42,8 @@ def run():
     # Total donors
     total_donors = df_filtered.shape[0]
     # Count the number of unique professions and locations (arrondissements)
-    unique_professions = df_filtered['Profession'].nunique()
-    unique_locations = df_filtered['Arrondissement de résidence'].nunique()
+    unique_professions = df_filtered['Profession_'].nunique()
+    unique_locations = df_filtered['Arrondissement_de_résidence_'].nunique()
 
     # Display the metrics in smaller boxes, horizontally adjacent
     st.markdown(f'''
@@ -78,8 +78,8 @@ def run():
     for index, row in df_filtered.iterrows():
         folium.Marker(
             location=[row['Latitude'], row['Longitude']],
-            popup=(f"Arrondissement: {row['Arrondissement de résidence']}<br>"
-                   f"Profession: {row['Profession']}"),
+            popup=(f"Arrondissement: {row['Arrondissement_de_résidence_']}<br>"
+                   f"Profession: {row['Profession_']}"),
             icon=folium.Icon(color="blue", icon="info-sign"),
             tooltip="Click for details"
         ).add_to(map_donors)
