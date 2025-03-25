@@ -4,7 +4,8 @@ import pandas as pd
 from pydantic import BaseModel
 
 # Load the trained model
-model = joblib.load("blood_donation_model.pkl")
+model = joblib.load("./models/blood_donation_model.pkl")
+feature_columns = joblib.load("./models/feature_columns.pkl")
 
 # Define categorical columns used in training
 categorical_columns = ["Niveau_scolaire", "Genre_", "Situation_Matrimoniale_(SM)", 
@@ -29,14 +30,18 @@ class DonorData(BaseModel):
 
 # Define a function for prediction
 def predict_eligibility(new_data):
-    # Convert input to DataFrame
     new_data_df = pd.DataFrame([new_data.dict()])
+
+    # Check for missing categorical columns
+    for col in categorical_columns:
+        if col not in new_data_df.columns:
+            new_data_df[col] = "Unknown"  # Provide a default value
 
     # Apply one-hot encoding (ensure it matches training format)
     new_data_df = pd.get_dummies(new_data_df, columns=categorical_columns, drop_first=True)
 
-    # Ensure it has the same column structure as training data
-    new_data_df = new_data_df.reindex(columns=X.columns, fill_value=0)
+    # Ensure the DataFrame has the same structure as the trained model
+    new_data_df = new_data_df.reindex(columns=feature_columns, fill_value=0)
 
     # Make prediction
     prediction = model.predict(new_data_df)

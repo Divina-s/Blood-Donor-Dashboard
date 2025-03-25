@@ -4,7 +4,10 @@ import pandas as pd
 import os 
 
 # Load the trained model
-model = joblib.load("blood_donation_model.pkl")
+
+model = joblib.load("./models/blood_donation_model.pkl")
+feature_columns = joblib.load("./models/feature_columns.pkl")
+
 
 image_path = os.path.join(os.path.dirname(__file__), "../resources/images/blooddonor.jpeg")
 # Define categorical columns used in training
@@ -22,7 +25,7 @@ def predict_eligibility(data):
     df = pd.get_dummies(df, columns=categorical_columns, drop_first=True)
 
     # Ensure it has the same column structure as training data
-    df = df.reindex(columns=X.columns, fill_value=0)
+    df = df.reindex(columns=feature_columns, fill_value=0)
 
     # Make prediction
     prediction = model.predict(df)
